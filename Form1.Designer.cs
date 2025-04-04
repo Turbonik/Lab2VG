@@ -28,55 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.authoriseUserControl1 = new Lab2VG.AuthoriseUserControl();
-            this.menu1 = new Lab2VG.MenuUserControl();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(515, 86);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 16);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "label1";
             // 
             // authoriseUserControl1
             // 
-            this.authoriseUserControl1.Location = new System.Drawing.Point(-178, 1);
+            this.authoriseUserControl1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.authoriseUserControl1.Location = new System.Drawing.Point(-8, 1);
             this.authoriseUserControl1.Name = "authoriseUserControl1";
-            this.authoriseUserControl1.Size = new System.Drawing.Size(1212, 527);
-            this.authoriseUserControl1.TabIndex = 1;
-            // 
-            // menu1
-            // 
-            this.menu1.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.menu1.Location = new System.Drawing.Point(229, 22);
-            this.menu1.Name = "menu1";
-            this.menu1.Size = new System.Drawing.Size(741, 474);
-            this.menu1.TabIndex = 0;
+            this.authoriseUserControl1.Size = new System.Drawing.Size(953, 318);
+            this.authoriseUserControl1.TabIndex = 3;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1034, 540);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(948, 331);
             this.Controls.Add(this.authoriseUserControl1);
-            this.Controls.Add(this.menu1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "АИС Отдел кадров";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private MenuUserControl menu1;
         private AuthoriseUserControl authoriseUserControl1;
-        public System.Windows.Forms.Label label1;
+    
     }
 }
 

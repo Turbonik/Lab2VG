@@ -1,92 +1,119 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using AuthenticationDLL;
 using Lab2VG;
+using MenuDLL;
 
 namespace Lab2VG
 {
     public partial class Form1 : Form
     {
-        private Authentication.UserRole _currentUserRole = Authentication.UserRole.Guest;
-        private AuthoriseUserControl authoriseUserControl;
-        private MenuUserControl menuUserControl;
-        //private MenuStrip menuStrip1; // Remove this, use Menustrip from MenuUserControl
+        private Authentication.UserRole _currentUserRole;
+   
+
+        private MenuStructure menuStructure;
 
         public Form1()
         {
             InitializeComponent();
+     
+            authoriseUserControl1.Visible = true;
+            this.Activated += Form1_Activated; 
+            this.Deactivate += Form1_Deactivated;
+            this.Load += Form1_Load;
+            authoriseUserControl1.OnUpdateStatus += UpdateStatusStripLabels;
 
-            authoriseUserControl = new AuthoriseUserControl();
-            authoriseUserControl.AuthenticationCompleted += AuthoriseUserControl_AuthenticationCompleted;
-            authoriseUserControl.Dock = DockStyle.Fill;
-            Controls.Add(authoriseUserControl);
 
-            menuUserControl = new MenuUserControl();
-            menuUserControl.Dock = DockStyle.Fill;
-            menuUserControl.Visible = false;  // Initially hidden
-            Controls.Add(menuUserControl);
-
-            //menuStrip1.Visible = false; // Initially hide the menu
         }
 
+      
+
+        private void Form1_Activated(object sender, EventArgs e)
+        {
+          
+            UpdateStatus();
+        }
+        private void Form1_Deactivated(object sender, EventArgs e)
+        {
+
+            UpdateStatus();
+        }
+       
+        private void UpdateStatusStripLabels(string language, string capsLock)
+        {
+            authoriseUserControl1.UpdateStatusLabels(language, capsLock);
+        }
+
+
+        private void UpdateStatus()
+        {
+            authoriseUserControl1.UpdateStatus();
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            
+            if (m.Msg == 0x0051)
+            {
+                UpdateStatus(); 
+            }
+
+            
+            if (m.Msg == 0x0101 || m.Msg == 0x0100)
+            {
+                Keys keyCode = (Keys)(int)m.WParam;
+                if (keyCode == Keys.CapsLock)
+                {
+                    UpdateStatus();
+                }
+
+            }
+
+            base.WndProc(ref m);
+        }
+    
+    private void Form1_Load(object sender, EventArgs e)
+        {
+            StartAutentication();
+
+        }
+
+        private void StartAutentication()
+        {
+
+                authoriseUserControl1.AuthenticationCompleted += AuthoriseUserControl_AuthenticationCompleted;
+                authoriseUserControl1.Dock = DockStyle.Fill;
+                Controls.Add(authoriseUserControl1);
+        
+        }
         private void AuthoriseUserControl_AuthenticationCompleted(object sender, Authentication.UserRole userRole)
         {
+            MenuUserControl menuControl;
             _currentUserRole = userRole;
-            authoriseUserControl.Visible = false;
-            menuUserControl.Visible = true;
+            Controls.Clear();
+         
+            authoriseUserControl1.Visible = false;
+          
+            try
+            {
+                menuControl = new MenuUserControl(userRole);
+                menuControl.Dock = DockStyle.Fill;
+                menuControl.Visible = true;
+                this.Controls.Add(menuControl);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
+    
+          
+         
 
-        }
-
-        private void оПрограммеToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Это приложение виртуальной памяти.");
-        }
-
-        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void справкаToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Справка");
-        }
-
-        private void разныеToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Разные");
-        }
-        private void сотрудникиToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Сотрудники");
         }
 
-        private void приказыToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Приказы");
-        }
-        private void документыToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Документы");
-        }
-
-        private void отделыToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Отделы");
-        }
-
-        private void городаToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Города");
-        }
-        private void должностиToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Должности");
-        }
-        private void окноToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Окно");
-        }
     }
+
 }

@@ -46,30 +46,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\AuthenticationModel.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="MenuUserControl.cs">
+    <Compile Include="Authentication\IAuthenticationModel.cs" />
+    <Compile Include="UserControls\MenuUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MenuUserControl.Designer.cs">
+    <Compile Include="UserControls\MenuUserControl.Designer.cs">
       <DependentUpon>MenuUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AuthoriseUserControl.cs">
+    <Compile Include="UserControls\AuthoriseUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="AuthoriseUserControl.Designer.cs">
+    <Compile Include="UserControls\AuthoriseUserControl.Designer.cs">
       <DependentUpon>AuthoriseUserControl.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MenuUserControl.resx">
+    <EmbeddedResource Include="UserControls\MenuUserControl.resx">
       <DependentUpon>MenuUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -80,8 +82,9 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="AuthoriseUserControl.resx">
+    <EmbeddedResource Include="UserControls\AuthoriseUserControl.resx">
       <DependentUpon>AuthoriseUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -106,6 +109,24 @@
       <Project>{236fcc91-8639-4bdd-8a75-4797c05f285e}</Project>
       <Name>MenuDLL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\87-876060_animated-picture-of-key-animated-images-of-keys.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Снимок экрана 2025-04-04 212501.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\passgenorganizer_icon_60796.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\passgenorganizer_icon_607961.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\passgenorganizer_icon_607962.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Снимок экрана 2025-04-04 213101.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
