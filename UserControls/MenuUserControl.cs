@@ -1,79 +1,149 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AuthenticationDLL;
-using MenuDLL;
+
 
 namespace Lab2VG
 {
-    public partial class MenuUserControl : UserControl 
+    public partial class MenuUserControl : UserControl
     {
+
         private Authentication.UserRole _userRole;
-        private MenuStructure _menuStructure;
+        private object _menuStructure;
         private const string menuFilePath = "menu.txt";
+        private const string menuDllPath = @"C:\Users\2013o\source\repos\Lab2VG\bin\Debug\MenuDLL.dll";
+        private static Assembly _menuAssembly;
+
         public MenuUserControl(Authentication.UserRole userRole)
         {
             InitializeComponent();
-
             _userRole = userRole;
             LoadMenu();
         }
 
         private void LoadMenu()
         {
-            _menuStructure = MenuReader.ReadMenuFromFile(menuFilePath);
+            try
+            {
+                _menuAssembly = LoadAssembly(menuDllPath);
+                if (_menuAssembly == null)
+                {
+                    MessageBox.Show("Не удалось загрузить MenuDLL.dll", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            BuildMenu(_menuStructure.Items, menuStrip1.Items); 
+                _menuStructure = DynamicMenuLoader.ReadMenuFromFile(_menuAssembly, menuFilePath);
+
+                if (_menuStructure != null)
+                {
+                    Type menuStructureType = _menuStructure.GetType();
+                    PropertyInfo itemsProperty = menuStructureType.GetProperty("Items");
+                    IEnumerable enumerable = (IEnumerable)itemsProperty.GetValue(_menuStructure);
+                    List<object> menuItems = enumerable.Cast<object>().ToList();
+
+                    BuildMenu(menuItems, menuStrip1.Items);
+                }
+                else
+                {
+                    MessageBox.Show("Не удалось загрузить структуру меню.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке меню: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private static Assembly LoadAssembly(string dllPath)
+        {
+            try
+            {
+                return Assembly.LoadFrom(dllPath);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка при загрузке сборки: {ex.Message}");
+                return null;
+            }
         }
 
-        private void BuildMenu(List<MenuItemData> menuItems, ToolStripItemCollection parentMenuItems)
+        private void BuildMenu(List<object> menuItems, ToolStripItemCollection parentMenuItems)
         {
-         
-            foreach (MenuItemData menuItemData in menuItems)
+            foreach (object menuItemDataObject in menuItems)
             {
-                
-                int accessLevel = Authentication.GetMenuItemAccessLevel(_userRole, menuItemData.Text); 
-                ToolStripMenuItem menuItem = new ToolStripMenuItem(menuItemData.Text);
+                Type menuItemDataType = menuItemDataObject.GetType();
+                PropertyInfo textProperty = menuItemDataType.GetProperty("Text");
+                PropertyInfo methodNameProperty = menuItemDataType.GetProperty("MethodName");
+                PropertyInfo subItemsProperty = menuItemDataType.GetProperty("SubItems");
+                PropertyInfo nameProperty = menuItemDataType.GetProperty("Name");
+
+                string itemName = (string)textProperty.GetValue(menuItemDataObject);
+              
                
-                menuItem.Name = menuItemData.Name;
-                menuItem.Click += MenuItem_Click; 
-                menuItem.Visible = (accessLevel != 2); 
-                menuItem.Enabled = (accessLevel == 0);  
+                List<object> subItems = ((IEnumerable)subItemsProperty.GetValue(menuItemDataObject))?.Cast<object>().ToList(); 
+
+                string name = (string)nameProperty.GetValue(menuItemDataObject);
+
+                int accessLevel = Authentication.GetMenuItemAccessLevel(_userRole, itemName);
+                ToolStripMenuItem menuItem = new ToolStripMenuItem(itemName);
+
+                menuItem.Name = name;
+                menuItem.Click += MenuItem_Click;
+                menuItem.Visible = (accessLevel != 2);
+                menuItem.Enabled = (accessLevel == 0);
 
                 parentMenuItems.Add(menuItem);
 
-               
-                if (menuItemData.SubItems.Count > 0)
+                if (subItems != null && subItems.Count > 0)
                 {
-                    BuildMenu(menuItemData.SubItems, menuItem.DropDownItems);
+                    BuildMenu(subItems, menuItem.DropDownItems);
                 }
             }
-         
         }
 
         private void MenuItem_Click(object sender, EventArgs e)
         {
-          
             ToolStripMenuItem menuItem = (ToolStripMenuItem)sender;
-            string methodName = menuItem.Name; 
+            string methodName = menuItem.Name;
+
             if (!string.IsNullOrEmpty(methodName))
             {
                 try
                 {
-                    GetType().GetMethod(methodName).Invoke(this, null);
+                    MethodInfo method = GetType().GetMethod(methodName, BindingFlags.Public | BindingFlags.Instance);
+
+                    if (method != null)
+                    {
+                        method.Invoke(this, null);
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Метод {methodName} не найден в MenuUserControl.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ошибка при вызове метода {methodName}: {ex.Message}");
+                    MessageBox.Show($"Ошибка при вызове метода {methodName}: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
+
+        private void ExampleMethod()
+        {
+            MessageBox.Show("Example method called!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+
+
         public void Others()
         {
             MessageBox.Show("Выбран пункт меню: Разное");
@@ -138,5 +208,6 @@ namespace Lab2VG
         {
             Application.Exit();
         }
+
     }
 }
