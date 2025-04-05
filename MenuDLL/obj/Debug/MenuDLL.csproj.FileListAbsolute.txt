@@ -1,0 +1,9 @@
+C:\Users\2013o\source\repos\MenuDLL\bin\Debug\MenuDLL.dll
+C:\Users\2013o\source\repos\MenuDLL\bin\Debug\MenuDLL.pdb
+C:\Users\2013o\source\repos\MenuDLL\bin\Debug\AuthenticationDLL.dll
+C:\Users\2013o\source\repos\MenuDLL\bin\Debug\AuthenticationDLL.pdb
+C:\Users\2013o\source\repos\MenuDLL\obj\Debug\MenuDLL.csproj.AssemblyReference.cache
+C:\Users\2013o\source\repos\MenuDLL\obj\Debug\MenuDLL.csproj.CoreCompileInputs.cache
+C:\Users\2013o\source\repos\MenuDLL\obj\Debug\MenuDLL.csproj.Up2Date
+C:\Users\2013o\source\repos\MenuDLL\obj\Debug\MenuDLL.dll
+C:\Users\2013o\source\repos\MenuDLL\obj\Debug\MenuDLL.pdb

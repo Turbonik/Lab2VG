@@ -1,0 +1,6 @@
+C:\Users\2013o\source\repos\AuthenticationDLL\bin\Debug\AuthenticationDLL.dll
+C:\Users\2013o\source\repos\AuthenticationDLL\bin\Debug\AuthenticationDLL.pdb
+C:\Users\2013o\source\repos\AuthenticationDLL\obj\Debug\AuthenticationDLL.csproj.AssemblyReference.cache
+C:\Users\2013o\source\repos\AuthenticationDLL\obj\Debug\AuthenticationDLL.csproj.CoreCompileInputs.cache
+C:\Users\2013o\source\repos\AuthenticationDLL\obj\Debug\AuthenticationDLL.dll
+C:\Users\2013o\source\repos\AuthenticationDLL\obj\Debug\AuthenticationDLL.pdb
