@@ -13,6 +13,7 @@ namespace Lab2VG
 {
     public partial class AuthoriseUserControl : UserControl
     {
+        private const int max_length = 10;
         private Authentication authentication;
         private IAuthenticationModel model;
         private string usersFilePath = "users.txt";
@@ -20,13 +21,19 @@ namespace Lab2VG
 
         public delegate void UpdateStatusDelegate(string language, string capsLock);
         public event UpdateStatusDelegate OnUpdateStatus;
-        
+         
 
         public AuthoriseUserControl()
         {
             InitializeComponent();
-            model = new AuthenticationModel(usersFilePath);
-            
+            try
+            {
+                model = new AuthenticationModel(usersFilePath);
+            }
+            catch (Exception ex) {
+                MessageBox.Show(ex.Message);
+                throw new Exception(ex.Message);
+            }
 
         }
         public void UpdateStatusLabels(string language, string capsLock)
@@ -55,6 +62,10 @@ namespace Lab2VG
        
             try
             {
+                if (username.Length > max_length || password.Length > max_length)
+                {
+                    throw new Exception("Введенные длина и пароль слишком большие");
+                }
                Authentication.UserRole userRole = model.AuthenticateUser(username, password);
                 AuthenticationCompleted?.Invoke(this, userRole);
             }

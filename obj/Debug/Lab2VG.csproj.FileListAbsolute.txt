@@ -1,0 +1,17 @@
+C:\Users\2013o\source\repos\Lab2VG\bin\Debug\Lab2VG.exe.config
+C:\Users\2013o\source\repos\Lab2VG\bin\Debug\Lab2VG.exe
+C:\Users\2013o\source\repos\Lab2VG\bin\Debug\Lab2VG.pdb
+C:\Users\2013o\source\repos\Lab2VG\obj\Debug\Lab2VG.csproj.AssemblyReference.cache
+C:\Users\2013o\source\repos\Lab2VG\obj\Debug\Lab2VG.Form1.resources
+C:\Users\2013o\source\repos\Lab2VG\obj\Debug\Lab2VG.Properties.Resources.resources
+C:\Users\2013o\source\repos\Lab2VG\obj\Debug\Lab2VG.csproj.GenerateResource.cache
+C:\Users\2013o\source\repos\Lab2VG\obj\Debug\Lab2VG.csproj.CoreCompileInputs.cache
+C:\Users\2013o\source\repos\Lab2VG\obj\Debug\Lab2VG.exe
+C:\Users\2013o\source\repos\Lab2VG\obj\Debug\Lab2VG.pdb
+C:\Users\2013o\source\repos\Lab2VG\obj\Debug\Lab2VG.MenuUserControl.resources
+C:\Users\2013o\source\repos\Lab2VG\obj\Debug\Lab2VG.AuthoriseUserControl.resources
+C:\Users\2013o\source\repos\Lab2VG\bin\Debug\AuthenticationDLL.dll
+C:\Users\2013o\source\repos\Lab2VG\bin\Debug\MenuDLL.dll
+C:\Users\2013o\source\repos\Lab2VG\bin\Debug\AuthenticationDLL.pdb
+C:\Users\2013o\source\repos\Lab2VG\bin\Debug\MenuDLL.pdb
+C:\Users\2013o\source\repos\Lab2VG\obj\Debug\Lab2VG.csproj.Up2Date

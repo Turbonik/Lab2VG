@@ -13,8 +13,6 @@ namespace Lab2VG
         private Authentication.UserRole _currentUserRole;
    
 
-        private MenuStructure menuStructure;
-
         public Form1()
         {
             InitializeComponent();

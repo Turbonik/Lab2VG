@@ -17,8 +17,7 @@
 mono_crash.*
 
 # Build results
-[Dd]ebug/
-[Dd]ebugPublic/
+
 [Rr]elease/
 [Rr]eleases/
 x64/
@@ -72,9 +71,7 @@ StyleCopReport.xml
 *_h.h
 *.ilk
 *.meta
-*.iobj
 *.pch
-*.pdb
 *.ipdb
 *.pgc
 *.pgd
@@ -225,8 +222,7 @@ _pkginfo.txt
 # but keep track of directories ending in .cache
 !?*.[Cc]ache/
 
-# Others
-ClientBin/
+
 ~$*
 *~
 *.dbmdl
